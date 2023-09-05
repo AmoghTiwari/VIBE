@@ -3,6 +3,7 @@
 # Installattion
 ## Ignored but important files:
 - `$ROOT/data`
+- `$ROOT/output`
 
 # Errors
 ## Exception: pyglet 2.0.9 requires Python 3.8 or newer.

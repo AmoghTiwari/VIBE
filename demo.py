@@ -58,7 +58,7 @@ def main(args):
     # ========= [Optional] download the youtube video ========= #
     if video_file.startswith('https://www.youtube.com'):
         print(f'Donwloading YouTube video \"{video_file}\"')
-        video_file = download_youtube_clip(video_file, '/tmp')
+        video_file = download_youtube_clip(video_file, './tmp_dir')
 
         if video_file is None:
             exit('Youtube url is not valid!')
@@ -331,7 +331,7 @@ def main(args):
             if args.sideview:
                 img = np.concatenate([img, side_img], axis=1)
 
-            cv2.imwrite(os.path.join(output_img_folder, f'{frame_idx:06d}.png'), img)
+            cv2.imwrite(os.path.join(output_img_folder, f'{frame_idx:06d}.jpg'), img)
 
             if args.display:
                 cv2.imshow('Video', img)
@@ -343,7 +343,7 @@ def main(args):
 
         # ========= Save rendered video ========= #
         vid_name = os.path.basename(video_file)
-        save_name = f'{vid_name.replace(".mp4", "")}_vibe_result.mp4'
+        save_name = f'vibe_{vid_name.replace(".mp4", "")}_output.mp4'
         save_name = os.path.join(output_path, save_name)
         print(f'Saving result video to {save_name}')
         images_to_video(img_folder=output_img_folder, output_vid_file=save_name)

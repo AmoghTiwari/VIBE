@@ -44,3 +44,37 @@ ImportError: cannot import name 'ModelOutput' from 'smplx.utils' (/data/groot/mi
 - Replace `from smplx.utils import ModelOutput, SMPLOutput` with `from smplx.body_models import ModelOutput as SMPLOutput`
 - If you still get an error after the above change, try: `python -m pip uninstall smplx && python -m pip install smplx==0.1.13`
 
+## TypeError: Descriptors cannot not be created directly.
+```Traceback (most recent call last):
+  File "train.py", line 25, in <module>
+    from torch.utils.tensorboard import SummaryWriter
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/torch/utils/tensorboard/__init__.py", line 2, in <module>
+    from tensorboard.summary.writer.record_writer import RecordWriter  # noqa F401
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/tensorboard/summary/__init__.py", line 25, in <module>
+    from tensorboard.summary import v1
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/tensorboard/summary/v1.py", line 24, in <module>
+    from tensorboard.plugins.audio import summary as _audio_summary
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/tensorboard/plugins/audio/summary.py", line 36, in <module>
+    from tensorboard.plugins.audio import metadata
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/tensorboard/plugins/audio/metadata.py", line 21, in <module>
+    from tensorboard.compat.proto import summary_pb2
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/tensorboard/compat/proto/summary_pb2.py", line 16, in <module>
+    from tensorboard.compat.proto import tensor_pb2 as tensorboard_dot_compat_dot_proto_dot_tensor__pb2
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/tensorboard/compat/proto/tensor_pb2.py", line 16, in <module>
+    from tensorboard.compat.proto import resource_handle_pb2 as tensorboard_dot_compat_dot_proto_dot_resource__handle__pb2
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/tensorboard/compat/proto/resource_handle_pb2.py", line 16, in <module>
+    from tensorboard.compat.proto import tensor_shape_pb2 as tensorboard_dot_compat_dot_proto_dot_tensor__shape__pb2
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/tensorboard/compat/proto/tensor_shape_pb2.py", line 42, in <module>
+    serialized_options=None, file=DESCRIPTOR),
+  File "/data/groot/miniconda3/envs/vibe_env/lib/python3.7/site-packages/google/protobuf/descriptor.py", line 561, in __new__
+    _message.Message._CheckCalledFromGeneratedFile()
+TypeError: Descriptors cannot not be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+```
+### Solution
+- `python -m pip uninstall protobuf && python -m pip install protobuf==3.20 `
